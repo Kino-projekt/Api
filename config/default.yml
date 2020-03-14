@@ -1,0 +1,6 @@
+server:
+  port: 8000
+
+db:
+  type: 'postgres'
+  port: 5432

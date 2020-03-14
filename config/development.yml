@@ -1,0 +1,6 @@
+db:
+  host: 'localhost'
+  username: 'postgres'  #define your db username
+  password: 'postgres'  #define your db password
+  database: 'cinema'    #define your db database name
+  synchronize: true
