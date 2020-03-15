@@ -4,3 +4,6 @@ db:
   password: 'postgres'  #define your db password
   database: 'cinema'    #define your db database name
   synchronize: true
+
+jwt:
+  secret: 'fmoasihr514@#1dasdR' #define your secret key to jwt
