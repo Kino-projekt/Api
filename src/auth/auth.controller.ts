@@ -1,7 +1,7 @@
 import { Controller, Body, ValidationPipe, Post, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
-import { User } from './user.entity';
+import { User } from '../user/user.entity';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Authorization')
