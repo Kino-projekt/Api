@@ -1,15 +1,18 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Unique } from "typeorm";
 import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 @Unique(['email'])
 export class User extends BaseEntity {
 
     @PrimaryGeneratedColumn()
+    @ApiProperty()
     id: number;
 
     @Column()
+    @ApiProperty()
     email: string;
 
     @Column()

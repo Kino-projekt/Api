@@ -1,4 +1,4 @@
-import { Repository, EntityRepository } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
 import * as bcrypt from 'bcryptjs';
@@ -39,5 +39,9 @@ export class UserRepository extends Repository<User> {
         }
 
         return user.email;
+    }
+
+    async getUsers(): Promise<User[]> {
+        return await this.find();
     }
 }
