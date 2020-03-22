@@ -1,7 +1,8 @@
-import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Unique } from "typeorm";
+import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Unique, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
 import { ApiProperty } from '@nestjs/swagger';
+import { Article } from '../article/article.entity';
 
 @Entity()
 @Unique(['email'])
@@ -22,6 +23,9 @@ export class User extends BaseEntity {
     @Column()
     @Exclude()
     salt: string;
+
+    @OneToMany(type => Article, article => article.user, { eager: true })
+    articles: Article[];
 
     async validatePassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);
