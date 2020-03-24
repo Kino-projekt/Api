@@ -12,4 +12,8 @@ export class ArticleService {
     async create(articleDto: ArticleDto, user: User): Promise<Article> {
         return await this.articleRepository.createArticle(articleDto, user);
     }
+
+    async getArticles(): Promise<Article[]> {
+        return await this.articleRepository.find();
+    }
 }
