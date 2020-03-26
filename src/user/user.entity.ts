@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcryptjs';
 import { ApiProperty } from '@nestjs/swagger';
 import { Article } from '../article/article.entity';
+import { UserRole } from './user-role.enum';
 
 @Entity()
 @Unique(['email'])
@@ -23,6 +24,9 @@ export class User extends BaseEntity {
     @Column()
     @Exclude()
     salt: string;
+
+    @Column()
+    role: UserRole;
 
     @OneToMany(type => Article, article => article.user, { eager: true })
     articles: Article[];
