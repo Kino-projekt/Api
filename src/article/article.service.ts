@@ -4,6 +4,7 @@ import { User } from '../user/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ArticleRepository } from './article.repository';
 import { Article } from './article.entity';
+import { ArticleStatus } from './article-status.enum';
 
 @Injectable()
 export class ArticleService {
@@ -15,5 +16,13 @@ export class ArticleService {
 
     async getArticles(): Promise<Article[]> {
         return await this.articleRepository.find();
+    }
+
+    async getArticlesWithActiveStatuses(): Promise<Article[]> {
+        return await this.articleRepository.find({
+            where: [
+                { status: ArticleStatus.ACTIVE }
+            ]
+        });
     }
 }
