@@ -28,14 +28,15 @@ export class ArticleService {
     }
 
     async getArticles(): Promise<Article[]> {
-        return await this.articleRepository.find();
+        return await this.articleRepository.find({ order: { createdAt: 'ASC' } });
     }
 
     async getArticlesWithActiveStatuses(): Promise<Article[]> {
         return await this.articleRepository.find({
             where: [
                 { status: ArticleStatus.ACTIVE }
-            ]
+            ],
+            order: { createdAt: 'ASC' }
         });
     }
 
