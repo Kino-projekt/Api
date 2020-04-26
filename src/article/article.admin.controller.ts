@@ -1,7 +1,7 @@
 import {
     Body,
-    Controller,
-    Get, Param,
+    Controller, Delete,
+    Get, HttpCode, Param,
     ParseIntPipe,
     Patch,
     Post,
@@ -10,7 +10,7 @@ import {
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common';
-import { ApiBody, ApiProperty, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ArticleDto } from './dto/article.dto';
 import { GetUser } from '../user/get-user.decorator';
 import { User } from '../user/user.entity';
@@ -22,7 +22,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { UserRole } from '../user/user-role.enum';
 import { ArticleStatus } from './article-status.enum';
 import { ArticleStatusValidationPipe } from './pipes/article-status-validation.pipe';
-import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 
 @UseGuards(new RolesGuard(new Reflector()))
 @UseGuards(AuthGuard())
@@ -49,7 +48,19 @@ export class ArticleAdminController {
         return this.articleService.create(articleDto, user);
     }
 
+    @Delete('/:id')
+    @HttpCode(204)
+    @SetMetadata('roles', [UserRole.ADMIN])
+    @ApiResponse({ status: 204, description: 'Deleted article' })
+    @ApiResponse({ status: 404, description: 'Not found id' })
+    async delete(
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<void> {
+        return this.articleService.delete(id);
+    }
+
     @Get()
+    @SetMetadata('roles', [UserRole.ADMIN])
     @ApiResponse({ status: 200, description: 'Array of articles objects', type: Article })
     async getArticles(): Promise<Article[]> {
         return await this.articleService.getArticles();

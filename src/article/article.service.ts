@@ -38,4 +38,12 @@ export class ArticleService {
             ]
         });
     }
+
+    async delete(id: number): Promise<void> {
+        const result = await this.articleRepository.delete({ id });
+
+        if (result.affected === 0) {
+            throw new NotFoundException();
+        }
+    }
 }
