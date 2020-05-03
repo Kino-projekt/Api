@@ -4,13 +4,14 @@ import { MovieService } from './movie.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
 import { MovieRepository } from './movie.repository';
+import { MovieController } from './movie.controller';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([MovieRepository]),
     AuthModule,
   ],
-  controllers: [MovieAdminController],
+  controllers: [MovieAdminController, MovieController],
   providers: [MovieService]
 })
 export class MovieModule {}

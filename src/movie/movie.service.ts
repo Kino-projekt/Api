@@ -11,4 +11,8 @@ export class MovieService {
     async create(movieDto: MovieDto): Promise<Movie> {
         return this.movieRepository.createMovie(movieDto);
     }
+
+    async getMovies(): Promise<Movie[]> {
+        return this.movieRepository.find();
+    }
 }
