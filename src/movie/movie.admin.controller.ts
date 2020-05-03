@@ -1,4 +1,14 @@
-import { Body, Controller, Post, SetMetadata, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    HttpCode, Param, ParseIntPipe,
+    Post,
+    SetMetadata,
+    UseGuards,
+    UsePipes,
+    ValidationPipe,
+} from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { MovieDto } from './dto/movie.dto';
 import { RolesGuard } from '../auth/roles.gurad';
@@ -21,5 +31,14 @@ export class MovieAdminController {
     @ApiResponse({ status: 201, description: 'Created resource' })
     async create(@Body() movieDto: MovieDto): Promise<Movie> {
         return this.movieService.create(movieDto);
+    }
+
+    @Delete('/:id')
+    @HttpCode(204)
+    @SetMetadata('roles', [UserRole.ADMIN])
+    @ApiResponse({ status: 204, description: 'Deleted movie' })
+    @ApiResponse({ status: 404, description: 'Not found id' })
+    async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+        return this.movieService.delete(id);
     }
 }
