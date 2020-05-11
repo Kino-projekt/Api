@@ -22,4 +22,13 @@ export class ArticleRepository extends Repository<Article> {
 
         return article;
     }
+
+    async getArticlesWithActiveStatuses(): Promise<Article[]> {
+        return await this.find({
+            where: [
+                { status: ArticleStatus.ACTIVE }
+            ],
+            order: { createdAt: 'ASC' }
+        });
+    }
 }
