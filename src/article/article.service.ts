@@ -32,12 +32,7 @@ export class ArticleService {
     }
 
     async getArticlesWithActiveStatuses(): Promise<Article[]> {
-        return await this.articleRepository.find({
-            where: [
-                { status: ArticleStatus.ACTIVE }
-            ],
-            order: { createdAt: 'ASC' }
-        });
+        return this.articleRepository.getArticlesWithActiveStatuses();
     }
 
     async delete(id: number): Promise<void> {
