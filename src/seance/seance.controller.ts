@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { SeanceService } from './seance.service';
 import { ApiResponse } from '@nestjs/swagger';
 import { Seance } from './seance.entity';
@@ -11,5 +11,10 @@ export class SeanceController {
     @ApiResponse({ status: 200, description: 'Array of seances objects', type: Seance })
     async getSeances(): Promise<Seance[]> {
         return await this.seanceService.getSeances();
+    }
+
+    @Get('/:id')
+    async getSeanceById(@Param('id', ParseIntPipe) id: number): Promise<Seance> {
+        return await this.seanceService.getSeanceById(id);
     }
 }

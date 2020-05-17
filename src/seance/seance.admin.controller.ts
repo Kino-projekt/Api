@@ -1,7 +1,7 @@
 import {
     Body,
     ClassSerializerInterceptor,
-    Controller,
+    Controller, Delete, HttpCode, Param, ParseIntPipe,
     Post,
     SetMetadata, UseGuards,
     UseInterceptors,
@@ -31,5 +31,14 @@ export class SeanceAdminController {
     @ApiResponse({ status: 201, description: 'Created resource' })
     async create(@Body() seanceDto: SeanceDto): Promise<Seance> {
         return await this.seanceService.create(seanceDto);
+    }
+
+    @Delete('/:id')
+    @HttpCode(204)
+    @SetMetadata('roles', [UserRole.ADMIN])
+    @ApiResponse({ status: 204, description: 'Deleted seance' })
+    @ApiResponse({ status: 404, description: 'Not found id' })
+    async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+        return await this.seanceService.delete(id);
     }
 }

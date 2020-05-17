@@ -29,4 +29,22 @@ export class SeanceService {
     async getSeances(): Promise<Seance[]> {
         return await this.seanceRepository.find();
     }
+
+    async getSeanceById(id: number): Promise<Seance> {
+        const seance = await this.seanceRepository.findOne(id);
+
+        if (!seance) {
+            throw new NotFoundException();
+        }
+
+        return seance;
+    }
+
+    async delete(id: number): Promise<void> {
+        const result = await this.seanceRepository.delete({ id });
+
+        if (result.affected === 0) {
+            throw new NotFoundException();
+        }
+    }
 }
