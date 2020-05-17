@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Seance } from '../seance/seance.entity';
 
 @Entity()
 export class Movie extends BaseEntity {
@@ -23,4 +24,7 @@ export class Movie extends BaseEntity {
     @Column()
     @ApiProperty()
     createdAt: Date;
+
+    @OneToMany(type => Seance, seance => seance.movie, { eager: false })
+    seances: Seance[];
 }

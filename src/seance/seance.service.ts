@@ -1,4 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { SeanceRepository } from './seance.repository';
+import { SeanceDto } from './dto/seance.dto';
+import { Seance } from './seance.entity';
+import { MovieRepository } from '../movie/movie.repository';
+import { HallRepository } from '../hall/hall.repository';
 
 @Injectable()
-export class SeanceService {}
+export class SeanceService {
+    constructor(
+        private seanceRepository: SeanceRepository,
+        private movieRepository: MovieRepository,
+        private hallRepository: HallRepository
+    ) {}
+
+    async create(seanceDto: SeanceDto): Promise<Seance> {
+        const { movieId, hallId} = seanceDto;
+
+        const movie = await this.movieRepository.findOne(movieId);
+        const hall = await this.hallRepository.findOne(hallId);
+
+        if (!movie || !hall) {
+            throw new NotFoundException();
+        }
+
+        return this.seanceRepository.createSeance(movie, hall);
+    }
+}

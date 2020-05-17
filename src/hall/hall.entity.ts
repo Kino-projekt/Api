@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Seance } from '../seance/seance.entity';
 
 @Entity()
 export class Hall extends BaseEntity {
@@ -11,4 +12,7 @@ export class Hall extends BaseEntity {
     @Column()
     @ApiProperty()
     name: string;
+
+    @OneToMany(type => Seance, seance => seance.hall, { eager: false })
+    seances: Seance[]
 }
