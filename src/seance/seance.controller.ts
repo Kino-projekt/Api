@@ -1,9 +1,10 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { SeanceService } from './seance.service';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Seance } from './seance.entity';
 
 @Controller('seances')
+@ApiTags('Seance')
 export class SeanceController {
     constructor(private seanceService: SeanceService) {}
 
