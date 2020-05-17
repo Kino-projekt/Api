@@ -25,4 +25,8 @@ export class SeanceService {
 
         return this.seanceRepository.createSeance(movie, hall);
     }
+
+    async getSeances(): Promise<Seance[]> {
+        return await this.seanceRepository.find();
+    }
 }
