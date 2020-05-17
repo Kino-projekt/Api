@@ -5,10 +5,11 @@ import { Hall } from '../hall/hall.entity';
 
 @EntityRepository(Seance)
 export class SeanceRepository extends Repository<Seance> {
-    async createSeance(movie: Movie, hall: Hall): Promise<Seance> {
+    async createSeance(movie: Movie, hall: Hall, date: Date): Promise<Seance> {
         const seance = new Seance();
         seance.movie = movie;
         seance.hall = hall;
+        seance.date = date;
         await seance.save();
 
         return seance;

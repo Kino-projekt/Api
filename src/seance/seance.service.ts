@@ -14,7 +14,7 @@ export class SeanceService {
     ) {}
 
     async create(seanceDto: SeanceDto): Promise<Seance> {
-        const { movieId, hallId} = seanceDto;
+        const { movieId, hallId, date } = seanceDto;
 
         const movie = await this.movieRepository.findOne(movieId);
         const hall = await this.hallRepository.findOne(hallId);
@@ -23,7 +23,7 @@ export class SeanceService {
             throw new NotFoundException();
         }
 
-        return this.seanceRepository.createSeance(movie, hall);
+        return this.seanceRepository.createSeance(movie, hall, date);
     }
 
     async getSeances(): Promise<Seance[]> {

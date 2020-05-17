@@ -1,12 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumberString } from 'class-validator';
+import { IsDateString, IsNumberString } from 'class-validator';
 
 export class SeanceDto {
     @ApiProperty()
     @IsNumberString()
-    movieId: string;
+    movieId: number;
 
     @ApiProperty()
     @IsNumberString()
     hallId: number;
+
+    @ApiProperty()
+    @IsDateString()
+    date: Date
 }
