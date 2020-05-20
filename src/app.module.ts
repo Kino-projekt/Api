@@ -7,6 +7,7 @@ import { ArticleModule } from './article/article.module';
 import { MovieModule } from './movie/movie.module';
 import { HallModule } from './hall/hall.module';
 import { SeanceModule } from './seance/seance.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { SeanceModule } from './seance/seance.module';
     MovieModule,
     HallModule,
     SeanceModule,
+    CommentModule,
   ],
   controllers: [],
   providers: [],
