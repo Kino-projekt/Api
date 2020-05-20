@@ -15,7 +15,7 @@ export class Comment extends BaseEntity {
     @ApiProperty()
     content: string
 
-    @ManyToOne(type => User, user => user.comments, { eager: false })
+    @ManyToOne(type => User, user => user.comments, { eager: true })
     author: User
 
     @Exclude()
