@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, UseInterceptors } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MovieService } from './movie.service';
 import { Movie } from './movie.entity';
@@ -9,6 +9,7 @@ export class MovieController {
     constructor(private movieService: MovieService) {}
 
     @Get()
+    @UseInterceptors(ClassSerializerInterceptor)
     @ApiResponse({ status: 200, description: 'Array of movies objects', type: Movie })
     async getMovies(): Promise<Movie[]> {
         return await this.movieService.getMovies();
