@@ -8,6 +8,7 @@ import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { UserRole } from './user-role.enum';
+import { User } from './user.entity';
 
 @UseGuards(new RolesGuard(new Reflector()))
 @UseGuards(AuthGuard())
@@ -22,7 +23,15 @@ export class UserAdminController {
     @ApiResponse({ status: 204, description: 'Banned user' })
     @ApiResponse({ status: 403, description: 'Cannot ban ADMIN' })
     @ApiResponse({ status: 404, description: 'Not found id' })
-    async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    async ban(@Param('id', ParseIntPipe) id: number): Promise<void> {
         return await this.userService.ban(id);
+    }
+
+    @Patch('/:id/update-role')
+    @SetMetadata('roles', [UserRole.ADMIN])
+    @ApiResponse({ status: 404, description: 'Not found id' })
+    @ApiResponse({ status: 200, description: 'Updated role and return User' })
+    async update(@Param('id', ParseIntPipe) id: number): Promise<User> {
+        return await this.userService.updateRole(id);
     }
 }

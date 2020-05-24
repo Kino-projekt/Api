@@ -39,4 +39,17 @@ export class UserService {
         user.banned = true;
         await user.save();
     }
+
+    async updateRole(id: number): Promise<User> {
+        const user = await this.userRepository.findOne({ where: { id }});
+
+        if (!user) {
+            throw new NotFoundException();
+        }
+
+        user.role = UserRole.ADMIN;
+        await user.save();
+
+        return user;
+    }
 }
