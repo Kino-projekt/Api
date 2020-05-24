@@ -29,6 +29,10 @@ export class User extends BaseEntity {
     @Column()
     role: UserRole;
 
+    @Column({ default: false })
+    @Exclude()
+    banned: boolean;
+
     @Exclude()
     @OneToMany(type => Article, article => article.user, { eager: true })
     articles: Article[];

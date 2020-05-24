@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from '../user/user.repository';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
@@ -26,6 +26,10 @@ export class AuthService {
         }
 
         const user = await this.userRepository.findOne({ where: { "email": email} });
+
+        if (user.banned === true) {
+            throw new ForbiddenException();
+        }
 
         const payload: JwtPayload = { email };
         const accessToken = await this.jwtService.sign(payload);
