@@ -11,6 +11,10 @@ export class Seance extends BaseEntity {
     @ApiProperty()
     id: number;
 
+    @Column({ array: true, nullable: true })
+    @ApiProperty()
+    occupiedSeats: number;
+
     @ManyToOne(type => Movie, movie => movie.seances, { eager: false })
     movie: Movie;
 

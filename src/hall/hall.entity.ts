@@ -13,6 +13,10 @@ export class Hall extends BaseEntity {
     @ApiProperty()
     name: string;
 
+    @Column()
+    @ApiProperty()
+    countOfSeats: number;
+
     @OneToMany(type => Seance, seance => seance.hall, { eager: false })
     seances: Seance[]
 }

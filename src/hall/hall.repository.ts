@@ -5,9 +5,10 @@ import { HallDto } from './dto/hall.dto';
 @EntityRepository(Hall)
 export class HallRepository extends Repository<Hall> {
     async createHall(hallDto: HallDto): Promise<Hall> {
-        const { name } = hallDto;
+        const { name, countOfSeats } = hallDto;
         const hall = new Hall();
         hall.name = name;
+        hall.countOfSeats = countOfSeats;
 
         await hall.save();
 
