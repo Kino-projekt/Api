@@ -1,8 +1,9 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Movie } from '../movie/movie.entity';
 import { Hall } from '../hall/hall.entity';
 import { Exclude } from 'class-transformer';
+import { Booking } from '../booking/booking.entity';
 
 @Entity()
 export class Seance extends BaseEntity {
@@ -28,6 +29,10 @@ export class Seance extends BaseEntity {
     @Exclude()
     @Column()
     hallId: number;
+
+    @Exclude()
+    @OneToMany(type => Booking, booking => booking.seance, { eager: false })
+    bookings: Booking[];
 
     @Column({ nullable: true })
     date: Date;
