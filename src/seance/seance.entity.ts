@@ -16,7 +16,7 @@ export class Seance extends BaseEntity {
     @ApiProperty()
     occupiedSeats: number[];
 
-    @ManyToOne(type => Movie, movie => movie.seances, { eager: false })
+    @ManyToOne(type => Movie, movie => movie.seances, { eager: true })
     movie: Movie;
 
     @Exclude()
