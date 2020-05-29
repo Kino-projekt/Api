@@ -11,9 +11,14 @@ export class Booking extends BaseEntity {
     @ApiProperty()
     id: number;
 
-    @ManyToOne(type => Seance, seance => seance.bookings, { eager: false })
+    @Column("int", { array: true })
+    @ApiProperty()
+    reservedSeats: number[];
+
+    @ManyToOne(type => Seance, seance => seance.bookings, { eager: true })
     seance: Seance;
 
+    @Exclude()
     @Column()
     seanceId: number;
 

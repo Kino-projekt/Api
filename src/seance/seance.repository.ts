@@ -10,6 +10,7 @@ export class SeanceRepository extends Repository<Seance> {
         seance.movie = movie;
         seance.hall = hall;
         seance.date = date;
+        seance.occupiedSeats = [];
         await seance.save();
 
         return seance;
