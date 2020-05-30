@@ -23,9 +23,10 @@ export class Seance extends BaseEntity {
     @Column()
     movieId: number;
 
-    @ManyToOne(type => Hall, hall => hall.seances, { eager: false })
+    @ManyToOne(type => Hall, hall => hall.seances, { eager: true })
     hall: Hall;
 
+    @Exclude()
     @Column()
     hallId: number;
 
