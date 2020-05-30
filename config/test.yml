@@ -1,0 +1,9 @@
+db:
+  host: 'localhost'
+  username: 'postgres'  #define your db username
+  password: 'postgres'  #define your db password
+  database: 'cinema_test'    #define your db database name
+  synchronize: true
+
+jwt:
+  secret: 'test_48A7e$a5)Mn!' #define your secret key to jwt
